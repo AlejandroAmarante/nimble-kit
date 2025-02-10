@@ -10,116 +10,201 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="nav">
-        <a href="#" class="nav-link active">Home</a>
-        <a href="#" class="nav-link">Components</a>
-        <a href="#" class="nav-link">Documentation</a>
-        <a href="#" class="nav-link">Contact</a>
-    </nav>
+    <header>
+        <nav class="nav">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link active">Components</a>
+            <a href="#" class="nav-link">Documentation</a>
+            <a href="#" class="nav-link">Contact</a>
+        </nav>
+    </header>
+    <div class="page-layout container mt-3">
 
-    <div class="container mt-3">
-        <!-- Alerts Section -->
-        <section>
-            <h2 class="section-title">Alerts</h2>
-            <div class="alert alert-success">
-                <i data-lucide="check-circle"></i>
-                This is a success alert — check it out!
-            </div>
-            <div class="alert alert-warning">
-                <i data-lucide="circle-alert"></i>
-                This is a warning alert — check it out!
-            </div>
-            <div class="alert alert-danger">
-                <i data-lucide="octagon-x"></i>
-                This is a danger alert — check it out!
-            </div>
-        </section>
+        <!-- Table of Contents Sidebar -->
+        <aside class="sidebar">
+            <ul class="toc-list">
+                <li><a href="#alerts" class="toc-link">Alerts</a></li>
+                <li><a href="#buttons" class="toc-link">Buttons</a></li>
+                <li><a href="#forms" class="toc-link">Form Elements</a></li>
+                <li><a href="#three-col" class="toc-link">Three Column Layout</a></li>
+                <li><a href="#two-col" class="toc-link">Two Column Layout</a></li>
+            </ul>
+        </aside>
 
-        <!-- Buttons Section -->
-        <section>
-            <h2 class="section-title">Buttons</h2>
-            <div class="flex-row">
-                <button class="btn btn-primary">Primary Button</button>
-                <button class="btn btn-secondary">Secondary Button</button>
-                <button class="btn btn-tertiary">Tertiary Button</button>
-                <button class="btn btn-success"><i data-lucide="check"></i><span>Success
-                        Button</span></button>
-                <button class="btn btn-warning"><i data-lucide="triangle-alert"></i>Warning Button</button>
-                <button class="btn btn-danger"><i data-lucide="x"></i>Danger Button</button>
-                <button class="btn btn-primary" disabled>Disabled Button</button>
-            </div>
-        </section>
+        <main class="main-content">
+            <!-- Alerts Section -->
+            <section id="alerts">
+                <h2 class="section-title">Alerts</h2>
+                <div class="alert alert-success">
+                    <i data-lucide="check-circle"></i>
+                    This is a success alert — check it out!
+                </div>
+                <div class="alert alert-warning">
+                    <i data-lucide="circle-alert"></i>
+                    This is a warning alert — check it out!
+                </div>
+                <div class="alert alert-danger">
+                    <i data-lucide="octagon-x"></i>
+                    This is a danger alert — check it out!
+                </div>
+            </section>
 
-        <!-- Forms Section -->
-        <section>
-            <h2 class="section-title">Form Elements</h2>
-            <div class="card">
-                <form>
-                    <div class="form-group">
-                        <label class="form-label">Name</label>
-                        <input type="text" class="form-input" placeholder="Enter your name">
+            <!-- Buttons Section -->
+            <section id="buttons">
+                <h2 class="section-title">Buttons</h2>
+                <div class="flex-row">
+                    <button class="btn btn-primary">Primary Button</button>
+                    <button class="btn btn-secondary">Secondary Button</button>
+                    <button class="btn btn-tertiary">Tertiary Button</button>
+                    <button class="btn btn-success"><i data-lucide="check"></i><span>Success
+                            Button</span></button>
+                    <button class="btn btn-warning"><i data-lucide="triangle-alert"></i>Warning Button</button>
+                    <button class="btn btn-danger"><i data-lucide="x"></i>Danger Button</button>
+                    <button class="btn btn-primary" disabled>Disabled Button</button>
+                </div>
+            </section>
+
+            <!-- Forms Section -->
+            <section id="forms">
+                <h2 class="section-title">Form Elements</h2>
+                <div class="card">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Name<span class="form-label--required">*</span></label>
+                            <input type="text" class="form-input" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email<span class="form-label--required">*</span></label>
+                            <input type="email" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message<span class="form-label--required">*</span></label>
+                            <textarea class="form-input" rows="3" placeholder="Enter your message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit<i
+                                data-lucide="send-horizontal"></i></button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Flex Layout System -->
+            <section id="three-col">
+                <h2 class="section-title">Three Column Layout</h2>
+                <div class="flex-row">
+                    <div class="flex-col-3 card">
+                        <div class="card-header">Card 1</div>
+                        <div class="card-body">
+                            This is a card in a 3-column flex layout. It will stack on mobile devices.
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-input" placeholder="Enter your email">
+                    <div class="flex-col-3 card">
+                        <div class="card-header">Card 2</div>
+                        <div class="card-body">
+                            This is a card in a 3-column flex layout. It will stack on mobile devices.
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Message</label>
-                        <textarea class="form-input" rows="3" placeholder="Enter your message"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit<i data-lucide="send-horizontal"></i></button>
-                </form>
-            </div>
-        </section>
-
-        <!-- Flex Layout System -->
-        <section>
-            <h2 class="section-title">Three Column Layout</h2>
-            <div class="flex-row">
-                <div class="flex-col-3 card">
-                    <div class="card-header">Card 1</div>
-                    <div class="card-body">
-                        This is a card in a 3-column flex layout. It will stack on mobile devices.
+                    <div class="flex-col-3 card">
+                        <div class="card-header">Card 3</div>
+                        <div class="card-body">
+                            This is a card in a 3-column flex layout. It will stack on mobile devices.
+                        </div>
                     </div>
                 </div>
-                <div class="flex-col-3 card">
-                    <div class="card-header">Card 2</div>
-                    <div class="card-body">
-                        This is a card in a 3-column flex layout. It will stack on mobile devices.
-                    </div>
-                </div>
-                <div class="flex-col-3 card">
-                    <div class="card-header">Card 3</div>
-                    <div class="card-body">
-                        This is a card in a 3-column flex layout. It will stack on mobile devices.
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Two Column Layout -->
-        <section>
-            <h2 class="section-title">Two Column Layout</h2>
-            <div class="flex-row">
-                <div class="flex-col-2 card">
-                    <div class="card-header">Left Column</div>
-                    <div class="card-body">
-                        This is the left column in a 2-column flex layout.
+            <!-- Two Column Layout -->
+            <section id="two-col">
+                <h2 class="section-title">Two Column Layout</h2>
+                <div class="flex-row">
+                    <div class="flex-col-2 card">
+                        <div class="card-header">Left Column</div>
+                        <div class="card-body">
+                            This is the left column in a 2-column flex layout.
+                        </div>
+                    </div>
+                    <div class="flex-col-2 card">
+                        <div class="card-header">Right Column</div>
+                        <div class="card-body">
+                            This is the right column in a 2-column flex layout.
+                        </div>
                     </div>
                 </div>
-                <div class="flex-col-2 card">
-                    <div class="card-header">Right Column</div>
-                    <div class="card-body">
-                        This is the right column in a 2-column flex layout.
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </main>
     </div>
     <footer class="mt-3"><i data-lucide="rabbit"></i>NimbleKit Component Library</footer>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
+
+        // Get all sections and TOC links
+        const sections = document.querySelectorAll('section');
+        const tocLinks = document.querySelectorAll('.toc-link');
+
+        // Add smooth scrolling to TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Function to calculate how much of an element is visible in viewport
+        function getVisibleHeight(element) {
+            const rect = element.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // If element is completely above or below viewport
+            if (rect.bottom < 0 || rect.top > windowHeight) {
+                return 0;
+            }
+
+            // If element is partially visible
+            const visibleTop = Math.max(0, rect.top);
+            const visibleBottom = Math.min(windowHeight, rect.bottom);
+
+            return visibleBottom - visibleTop;
+        }
+
+        // Function to update active section
+        function updateActiveSection() {
+            let maxVisibleHeight = 0;
+            let mostVisibleSection = null;
+
+            // Find section with maximum visible height
+            sections.forEach(section => {
+                const visibleHeight = getVisibleHeight(section);
+                if (visibleHeight > maxVisibleHeight) {
+                    maxVisibleHeight = visibleHeight;
+                    mostVisibleSection = section;
+                }
+            });
+
+            // Update active class on TOC links
+            if (mostVisibleSection) {
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${mostVisibleSection.id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Add scroll event listener with debouncing
+        let timeout;
+        window.addEventListener('scroll', () => {
+            if (timeout) {
+                window.cancelAnimationFrame(timeout);
+            }
+            timeout = window.requestAnimationFrame(() => {
+                updateActiveSection();
+            });
+        });
+
+        // Initial call to set active section on page load
+        updateActiveSection();
     </script>
 </body>
 
