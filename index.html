@@ -5,7 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Component Library Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="favicon" type="image/x-icon">
 </head>
 
 <body>
@@ -141,6 +147,9 @@
         const sections = document.querySelectorAll('section');
         const tocLinks = document.querySelectorAll('.toc-link');
 
+        // Configuration for scan zone
+        let SCAN_ZONE_HEIGHT = window.innerHeight * 0.2; // 25% of viewport height
+
         // Add smooth scrolling to TOC links
         tocLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -150,57 +159,106 @@
             });
         });
 
-        // Function to calculate how much of an element is visible in viewport
-        function getVisibleHeight(element) {
+        // Function to calculate how much of an element is in the scan zone
+        function getOverlapPercentage(element) {
             const rect = element.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
+            const currentScrollY = window.scrollY;
 
-            // If element is completely above or below viewport
-            if (rect.bottom < 0 || rect.top > windowHeight) {
-                return 0;
-            }
+            // Calculate scan zone boundaries
+            const scrollPercent = currentScrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const maxTop = window.innerHeight - SCAN_ZONE_HEIGHT;
+            const scanZoneTop = maxTop * scrollPercent;
+            const scanZoneBottom = scanZoneTop + SCAN_ZONE_HEIGHT;
 
-            // If element is partially visible
-            const visibleTop = Math.max(0, rect.top);
-            const visibleBottom = Math.min(windowHeight, rect.bottom);
+            // Calculate element boundaries in viewport coordinates
+            const elementTop = rect.top;
+            const elementBottom = rect.bottom;
+            const elementHeight = rect.height;
 
-            return visibleBottom - visibleTop;
+            // Calculate overlap
+            const overlapTop = Math.max(elementTop, scanZoneTop);
+            const overlapBottom = Math.min(elementBottom, scanZoneBottom);
+            const overlapHeight = Math.max(0, overlapBottom - overlapTop);
+
+            // Calculate percentage of element that's in the scan zone
+            return (overlapHeight / elementHeight) * 100;
         }
 
         // Function to update active section
         function updateActiveSection() {
-            let maxVisibleHeight = 0;
-            let mostVisibleSection = null;
+            // Update scan zone indicator
+            //updateScanZoneIndicator(SCAN_ZONE_HEIGHT);
 
-            // Find section with maximum visible height
+            // Find section with highest overlap percentage
+            let maxOverlap = 0;
+            let activeSection = null;
+
             sections.forEach(section => {
-                const visibleHeight = getVisibleHeight(section);
-                if (visibleHeight > maxVisibleHeight) {
-                    maxVisibleHeight = visibleHeight;
-                    mostVisibleSection = section;
+                const overlapPercentage = getOverlapPercentage(section);
+                if (overlapPercentage > maxOverlap) {
+                    maxOverlap = overlapPercentage;
+                    activeSection = section;
                 }
             });
 
-            // Update active class on TOC links
-            if (mostVisibleSection) {
+            // Only activate if we have significant overlap (e.g., more than 10%)
+            if (activeSection && maxOverlap > 10) {
                 tocLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${mostVisibleSection.id}`) {
+                    if (link.getAttribute('href') === `#${activeSection.id}`) {
                         link.classList.add('active');
                     }
                 });
             }
         }
 
-        // Add scroll event listener with debouncing
-        let timeout;
-        window.addEventListener('scroll', () => {
-            if (timeout) {
-                window.cancelAnimationFrame(timeout);
+        // Create visual indicator of scan zone for debugging
+        function createScanZoneIndicator() {
+            let indicator = document.getElementById('scan-zone-indicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'scan-zone-indicator';
+                indicator.style.position = 'fixed';
+                indicator.style.right = '0';
+                indicator.style.width = '20px';
+                indicator.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                indicator.style.pointerEvents = 'none';
+                indicator.style.zIndex = '9999';
+                document.body.appendChild(indicator);
             }
-            timeout = window.requestAnimationFrame(() => {
-                updateActiveSection();
-            });
+            return indicator;
+        }
+
+        // Update scan zone indicator position
+        function updateScanZoneIndicator(height) {
+            const indicator = createScanZoneIndicator();
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const maxTop = window.innerHeight - height;
+            const top = maxTop * scrollPercent;
+
+            indicator.style.top = `${top}px`;
+            indicator.style.height = `${height}px`;
+        }
+
+        // Add scroll event listener with throttling
+        let isThrottled = false;
+        const throttleTime = 100;
+
+        window.addEventListener('scroll', () => {
+            if (!isThrottled) {
+                isThrottled = true;
+                setTimeout(() => {
+                    updateActiveSection();
+                    isThrottled = false;
+                }, throttleTime);
+            }
+        });
+
+        // Add resize event listener
+        window.addEventListener('resize', () => {
+            // Update scan zone height if viewport changes
+            SCAN_ZONE_HEIGHT = window.innerHeight * 0.25;
+            updateActiveSection();
         });
 
         // Initial call to set active section on page load

@@ -17,7 +17,7 @@
   --dark: #1f2937;
 
   /* Typography */
-  --font-primary: system-ui, -apple-system, sans-serif;
+  --font-primary: inter, system-ui, -apple-system, sans-serif;
   --font-size-base: 1rem;
   --line-height-base: 1.5;
 
@@ -273,11 +273,12 @@ header {
   position: sticky;
   top: 6.8rem;
   height: fit-content;
-  min-width: 200px;
   padding: var(--spacing-md);
   background: white;
   border-radius: var(--border-radius-md);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  width: 220px; /* Set a consistent width */
 }
 
 .toc-list {
@@ -286,6 +287,7 @@ header {
   gap: var(--spacing-sm);
   list-style: none;
   padding: 0;
+  text-wrap: balance;
 }
 
 .toc-link {
@@ -296,6 +298,7 @@ header {
   border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
   transition: all 0.2s ease;
   border-left: 2px solid transparent;
+  width: 100%;
 }
 
 .toc-link:hover {
@@ -305,7 +308,7 @@ header {
 .toc-link.active {
   color: var(--primary);
   border-left: 2px solid var(--primary);
-  font-weight:600;
+  font-weight: 600;
 }
 
 .main-content {
